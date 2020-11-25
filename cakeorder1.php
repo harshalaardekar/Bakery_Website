@@ -177,21 +177,11 @@ input[type=text],input[type=date],input[type=integer],select,textarea,label
 {
   border-radius: 10px;
   height:27px;
-  width: 160px;
+  width: 150px;
   font-size: 18px;
-  margin-left:0.5%;
+  margin-left: 0.5%;
   text-align: center;
 }
-
-input[type=text1]
-{
-  border-style: none;
-  height:27px;
-  width: 180px;
-  font-size: 18px;
-  margin-left:0.5%;
-}
-
 .ip
 {
   border-radius: 10px;
@@ -276,7 +266,7 @@ legend
         <label>Cake Type:</label>
         <?php
           $cake=$_POST['ordernow'];
-          echo "<input type='text1' name='cake' value='$cake' />";
+          echo "<input type='text' name='cake' value='$cake' />";
          ?>
         <br><br>
         <label>Weight :
@@ -284,11 +274,11 @@ legend
           $price=$_POST['price'];
           if($price < 450)
           {
-          echo "<input type='text1' name='weight' value='1/2 kg' />";
+          echo "<input type='text' name='weight' value='1/2 kg' />";
           }
           else
           {
-          echo "<input type='text1' name='weight' value='1 kg' />";
+          echo "<input type='text' name='weight' value='1 kg' />";
           }
           ?>
         </label>
@@ -307,11 +297,16 @@ legend
           </select>
         </label>
         <br><br>
-        <label>Message On Cake : </lable>
-        <textarea name="msg" placeholder="" ></textarea>
+        <label>Upload:</label>
+        <input type="file" name="userfile" id="report" class="form-control">
         <br><br>
-        <lable>Date :</lable>
+        <label>Message On Cake : 
+        <textarea name="msg" placeholder="" ></textarea>
+        </label>
+        <br><br>
+        <lable>Date :
         <input type="date"  name="day" placeholder="Delivery Date" required>
+        </lable>
         <br><br>
         <label>Time:
         <select value="time" name="time"> 
@@ -323,7 +318,7 @@ legend
         <label>Price:</label>
         <?php
           $price=$_POST['price'];
-          echo "<input type='text1' name='price' value='$price' />" ?>
+          echo "<input type='text' name='price' value='$price' />" ?>
         <br><br>
         </fieldset><br>
     <button class="btn1" name="order" style="background-color:#ff8080;">Place Order</button><br><br>

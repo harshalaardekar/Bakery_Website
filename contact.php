@@ -43,7 +43,7 @@ include 'index.css';
 <p>Ground Floor, Timmy Arcade,</p>
 <p>Sector 127, Noida-20402, M.H.</p>
    <div>
-           <img src="images/map.png">
+      <img src="images/map.png">
     </div>
   </span>
   <br>

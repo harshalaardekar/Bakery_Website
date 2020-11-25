@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+<?php
+include "connect.php";
+?>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 </head>
 <style>
 body {
@@ -66,9 +68,9 @@ body {
   background-color: white;
   border-color: white;
   border-radius: 20px;
-  width:110px;
-  height: 30px;
-  font-size: 18px;
+  width:90px;
+  height: 25px;
+  font-size: 15px;
   color:black;
 }
 .row
@@ -85,9 +87,11 @@ max-width:100%;
 .box
 {
   height:400px;
-  background-color: #4d0000;
   border-radius: 30px;
-  align-items: center;
+  align-content: center;
+  margin-left: 3%;
+  margin-right: 3%;
+  overflow: auto;
 }
 .container {
   position: center;
@@ -107,8 +111,8 @@ font-family: "Century Gothic"
   background-color: white;
   border-color: white;
   border-radius: 20px;
-  width:110px;
-  height: 50px;
+  width:130px;
+  height: 40px;
   font-size: 20px;
   color:black;
 }
@@ -167,7 +171,52 @@ height: 40px;
 
 }
 
+label
+{
+color:white;
+font-size:20px;
+}
+input[type=text1]
+{
+  border-style: none; 
+  height:0.5px;
+  width: 0.5px;
+  background-color: transparent;
+  text-align: center;
+}
 
+select
+{
+  background-color: #660000;
+  border-color: none;
+  border-radius: 20px;
+  width:160px;
+  height: 30px;
+  font-size: 18px;
+  color:white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #ffb3d9;
+  border-radius: 20px;
+}
+
+td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  color :black;
+}
+th
+{
+  background-color: #660033;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  color :white;
+}
 
 </style>
 <body bgcolor="#ffe6e6">
@@ -177,11 +226,11 @@ height: 40px;
   <a><form action="veg.html" >
       <button class="btn"> Order Now</button> 
       </form></a>
-  <a href=" "> Contact </a>
-  <a href=" "> My Orders  </a>
-  <a href=" "> Wishlist  </a> 
-  <a href=" "> Our Menu </a>
-  <a href=" "> About Us </a>
+  <a href="contact.php"> Contact </a>
+  <a href="order1.php"> My Orders  </a>
+  <a href="wishlist.php"> Wishlist  </a> 
+  <a href="index.php"> Our Menu </a>
+  <a href="about.php"> About Us </a>
   
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
@@ -189,61 +238,70 @@ height: 40px;
 </div>
 <br>
 
-
 <div class="container">
-  <img src="images/index.jpg" alt="Snow" height="410px">
-  <div class="center-right"><b>Ready to shop 
-    <br>Bakery products</b></div>
- </div>
-<div class="row">
-  <br>
-  <center><a href="birthday.html"><button class="btn" style="background-color: #ffbf80">Birthday</button></a>
-    <a href="anniversary.html"><button class="btn" style="background-color: #ffbf80">Anniversary</button></a>
-  <a href="eggless.html"><button class="btn" style="background-color: #ffbf80">Eggless</button></a></center>
-  <div class="productbox"><br>
-           <div class="box" style="width:30%;Text-align:center;float:left;background-image: url(images/boxbg.jpeg);">
-            <h1><font color="white">CAKES</font></h1>
-            <img src="images/cakelogo.jpg" style="border-radius:150%;width:240px;height:240px;align-self: center;"><br><br>
-            <form action="cakes.php" >
-          <button class="btn1"><b> View All</button> </form>
+
+  <a href="order1.php"><button class="btn" style="float: right;margin-right: 25px;"> << Back </button></a>
+
+<div class="row"> 
+  <br><br>
+  <a href="pendingpastryorders.php"><button class="btn1"> Pending</button></a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="completedpastryorders.php"><button class="btn1" > Completed</button></a>
+  <br><br>
+  
+              <div class="box">
+                
+                <!-- /.box-body -->
+                <table>
+                <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Mobile No.</th>
+                  <th>Location</th>
+                  <th>Address</th>
+                  <th>Pastry Name</th>
+                  <th>Quantity</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Prize</th>
+                  <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                      <?php
+                      $query="select * from pastryorders where status=1";
+                      $result=mysqli_query($conn, $query);
+                      if ($result) {
+                      while ($object = $result->fetch_object()) 
+                      {
+                      echo "<tr>
+                        <td>".$object->fn."</td>
+                        <td>".$object->ln."</td>
+                        <td>".$object->email."</td>
+                        <td>".$object->mobile."</td>
+                        <td>".$object->at."</td>
+                        <td>".$object->houseno.",".$object->street.",".$object->city."</</td>
+                        <td>".$object->pastry."</td>
+                        <td>".$object->quantity."</td>
+                        <td>".$object->type."</td>
+                        <td>".$object->day."</td>
+                        <td>".$object->price."</td>
+                        <td>".$object->time."</td>
+                      </tr>";
+                      }
+                      }
+                      else {
+                      echo "Error : ".mysqli_error();
+                      }
+                      ?>
+                </tbody>
+                
+              </table>
+
+              </div>
+              <!-- /.box -->
             </div>
-
-           <div class="box" style="width:30%;Text-align:center;float:left;margin-left: 45px;background-image: url(images/boxbg.jpeg);">
-            <h1><font color="white">PASTRIES</font></h1>
-            <img src="images/pastrylogo.jpg" style="border-radius:150%;width:240px;height:240px;align-self: center;"><br><br>
-            <form action="veg.html" >
-          <button class="btn1"><b> View All</button> </form>
-           </div>
-
-           <div class="box" style="width:30%;Text-align:center;float:left;margin-left: 45px;background-image: url(images/boxbg.jpeg);">
-           <h1><font color="white">MUFFINS</font></h1>
-            <img src="images/Muffinslogo.jpg" style="border-radius:150%;width:240px;height:240px;align-self: center;"><br><br>
-            <form action="veg.html" >
-          <button class="btn1"><b> View All</button> </form>
-           </div>
-  </div>
-  <div class="productbox"><br>
-           <div class="box" style="width:30%;Text-align:center;float:left;background-image: url(images/boxbg.jpeg);">
-            <h1><font color="white">COOKIES</font></h1>
-            <img src="images/cookielogo.jpeg" style="border-radius:150%;width:240px;height:240px;align-self: center;"><br><br>
-            <form action="veg.html" >
-          <button class="btn1"><b> View All</button> </form>
-            </div>
-
-           <div class="box" style="width:30%;Text-align:center;float:left;margin-left: 45px;background-image: url(images/boxbg.jpeg);">
-            <h1><font color="white">BREAD ITEMS</font></h1>
-            <img src="images/breadlogo.jpg" style="border-radius:150%;width:240px;height:240px;align-self: center;"><br><br>
-            <form action="veg.html" >
-          <button class="btn1"><b> View All</button> </form>
-           </div>
-
-           <div class="box" style="width:30%;Text-align:center;float:left;margin-left: 45px;background-image: url(images/boxbg.jpeg);">
-           <h1><font color="white">WAFERS</font></h1>
-            <img src="images/waferlogo.jpeg" style="border-radius:150%;width:240px;height:240px;align-self: center;"><br><br>
-            <form action="veg.html" >
-          <button class="btn1"><b> View All</button> </form>
-           </div>
-  </div>
   <br>
 </div> 
 
